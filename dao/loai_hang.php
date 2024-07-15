@@ -13,7 +13,7 @@ function loai_selectAll()
 
 function loai_selectTop3()
 {
-    $sql = "SELECT ten_loai_hang FROM loai_hang LIMIT 3";
+    $sql = "SELECT * FROM loai_hang LIMIT 3";
     return pdo_query($sql);
 }
 

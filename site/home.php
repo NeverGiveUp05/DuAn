@@ -39,13 +39,29 @@
                         require '../dao/pdo.php';
                         require '../dao/loai_hang.php';
                         $ds = loai_selectTop3();
-                        foreach ($ds as $key => $value) {
-                            if ($key == 0) {
-                                echo "<li class='tab active'>$value[ten_loai_hang]</li>";
-                            } else {
-                                echo "<li class='tab'>$value[ten_loai_hang]</li>";
-                            }
-                        };
+                        foreach ($ds as $key => $value) { ?>
+                            <?php if (isset($_GET['list'])) { ?>
+                                <?php if ($_GET['list'] == $value['ma_loai_hang']) { ?>
+                                    <li class='tab active' onClick='change(<?php echo $value["ma_loai_hang"] ?>)'>
+                                        <?php echo $value['ten_loai_hang'] ?>
+                                    </li>
+                                <?php   } else { ?>
+                                    <li class='tab' onClick='change(<?php echo $value["ma_loai_hang"] ?>)'>
+                                        <?php echo $value['ten_loai_hang'] ?>
+                                    </li>
+                                <?php } ?>
+                            <?php   } else { ?>
+                                <?php if ($key == 0) { ?>
+                                    <li class='tab active' onClick='change(<?php echo $value["ma_loai_hang"] ?>)'>
+                                        <?php echo $value['ten_loai_hang'] ?>
+                                    </li>
+                                <?php   } else { ?>
+                                    <li class='tab' onClick='change(<?php echo $value["ma_loai_hang"] ?>)'>
+                                        <?php echo $value['ten_loai_hang'] ?>
+                                    </li>
+                                <?php } ?>
+                            <?php } ?>
+                        <?php    }
                         ?>
                     </ul>
                 </div>
@@ -56,7 +72,11 @@
                         require_once '../dao/pdo.php';
                         require '../dao/hang_hoa.php';
 
-                        $products = hang_selectAll();
+                        if (isset($_GET['list'])) {
+                            $products = hang_selectByLoaiHang($_GET['list']);
+                        } else {
+                            $products = hang_selectByLoaiHang(1);
+                        }
 
                         foreach ($products as $product) { ?>
                             <div class="box">
@@ -123,3 +143,23 @@
         <div class="close-shop" id="close" onClick="closeShop()"><i class="fa-solid fa-xmark"></i></div>
     </div>
 </main>
+
+
+<script>
+    let scroll = localStorage.getItem('scroll');
+
+    if (scroll) {
+        window.scrollTo(0, scroll);
+
+        localStorage.removeItem('scroll');
+    }
+
+    function change(maLoaiHang) {
+
+        let currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+        localStorage.setItem('scroll', currentScrollPosition);
+
+        window.location.href = '?list=' + maLoaiHang;
+    }
+</script>

@@ -6,6 +6,12 @@ function hang_selectAll()
     return pdo_query($sql);
 }
 
+function hang_selectByLoaiHang($ma_loai_hang)
+{
+    $sql = "SELECT * FROM hang_hoa WHERE ma_loai_hang = $ma_loai_hang";
+    return pdo_query($sql);
+}
+
 function hang_selectById($id)
 {
     $sql = "SELECT * FROM hang_hoa WHERE ma_hang_hoa = $id";
@@ -20,14 +26,22 @@ function hang_upView($id)
 
 function hang_add($name, $img_path, $img_path1, $img_path2, $img_path3, $cost, $discount, $type, $description)
 {
-    $sql = "INSERT INTO hang_hoa VALUES (null, '$name', '$img_path', '$img_path1', '$img_path2', '$img_path3', '$cost', '$discount', '$type', '$description', DEFAULT)";
+    if ($discount != null) {
+        $sql = "INSERT INTO hang_hoa VALUES (null, '$name', '$img_path', '$img_path1', '$img_path2', '$img_path3', '$cost', '$discount', '$type', '$description', DEFAULT)";
+    } else {
+        $sql = "INSERT INTO hang_hoa VALUES (null, '$name', '$img_path', '$img_path1', '$img_path2', '$img_path3', '$cost', null, '$type', '$description', DEFAULT)";
+    }
 
     pdo_execute($sql);
 }
 
 function hang_update($id, $name, $img_path, $img_path1, $img_path2, $img_path3, $cost, $discount, $type, $description)
 {
-    $sql = "UPDATE hang_hoa SET ten_hang_hoa = '$name', hinh_anh = '$img_path', hinh_anh_nen = '$img_path1', hinh_anh_1 = '$img_path2', hinh_anh_2 = '$img_path3', don_gia = '$cost', muc_giam_gia = '$discount', ma_loai_hang = '$type', mo_ta_hang_hoa = '$description' WHERE ma_hang_hoa = $id";
+    if ($discount != null) {
+        $sql = "UPDATE hang_hoa SET ten_hang_hoa = '$name', hinh_anh = '$img_path', hinh_anh_nen = '$img_path1', hinh_anh_1 = '$img_path2', hinh_anh_2 = '$img_path3', don_gia = '$cost', muc_giam_gia = '$discount', ma_loai_hang = '$type', mo_ta_hang_hoa = '$description' WHERE ma_hang_hoa = $id";
+    } else {
+        $sql = "UPDATE hang_hoa SET ten_hang_hoa = '$name', hinh_anh = '$img_path', hinh_anh_nen = '$img_path1', hinh_anh_1 = '$img_path2', hinh_anh_2 = '$img_path3', don_gia = '$cost', muc_giam_gia = NULL, ma_loai_hang = '$type', mo_ta_hang_hoa = '$description' WHERE ma_hang_hoa = $id";
+    }
 
     pdo_execute($sql);
 }

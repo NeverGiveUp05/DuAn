@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 15, 2024 at 11:40 AM
+-- Generation Time: Jul 15, 2024 at 05:28 PM
 -- Server version: 5.7.44
 -- PHP Version: 8.1.10
 
@@ -60,11 +60,21 @@ CREATE TABLE `hang_hoa` (
 --
 
 INSERT INTO `hang_hoa` (`ma_hang_hoa`, `ten_hang_hoa`, `hinh_anh`, `hinh_anh_nen`, `hinh_anh_1`, `hinh_anh_2`, `don_gia`, `muc_giam_gia`, `ma_loai_hang`, `mo_ta_hang_hoa`, `so_luot_xem`) VALUES
-(1, 'Bliss Dress - Đầm Xòe Dạo Phố', '/DuAnMau/content/images/image1.1.webp', '/DuAnMau/content/images/image1.2.webp', '/DuAnMau/content/images/image1.3.webp', '/DuAnMau/content/images/image1.4.webp', 2000000, 50, 1, 'Nhẹ nhàng, mềm mại trong thiết kế đầm hoa yêu kiều. Đầm cổ thuyền, có độ dài qua gối cùng kiểu dáng chữ A quen thuộc, khéo léo tôn lên nét đẹp dịu dàng của người mặc. Thiết kế tạo điểm nhấn thắt đai ngang eo, giúp che khuyết điểm tốt.', 11),
-(2, 'Camellia Midi - Đầm Lụa Phối Hoa', '/DuAnMau/content/images/image2.1.webp', '/DuAnMau/content/images/image2.2.webp', '/DuAnMau/content/images/image2.3.webp', '/DuAnMau/content/images/image2.4.webp', 100000, NULL, 1, 'hi', 13),
-(3, 'Đầm Cổ Chéo Xếp Ly', '/DuAnMau/content/images/image3.1.webp', '/DuAnMau/content/images/image3.2.webp', '/DuAnMau/content/images/image3.3.webp', '/DuAnMau/content/images/image3.4.webp', 300000, 10, 1, 'met', 7),
-(4, 'Đầm Lụa Trễ Vai Chun Eo Xòe', '/DuAnMau/content/images/image4.1.webp', '/DuAnMau/content/images/image4.2.webp', '/DuAnMau/content/images/image4.3.webp', '/DuAnMau/content/images/image4.4.webp', 10000000, 90, 1, 'hiii', 7),
-(7, 'Blue SEA Dress - Đầm Maxi Họa Tiết', '/DuAnMau/content/images/17209879711.webp', '/DuAnMau/content/images/17209879712.webp', '/DuAnMau/content/images/17209948853.webp', '/DuAnMau/content/images/17209879714.webp', 2000000, 50, 1, 'đẹp', 10);
+(1, 'Bliss Dress - Đầm Xòe Dạo Phố', '/DuAnMau/content/images/image1.1.webp', '/DuAnMau/content/images/image1.2.webp', '/DuAnMau/content/images/image1.3.webp', '/DuAnMau/content/images/image1.4.webp', 2000000, 50, 1, 'Nhẹ nhàng, mềm mại trong thiết kế đầm hoa yêu kiều. Đầm cổ thuyền, có độ dài qua gối cùng kiểu dáng chữ A quen thuộc, khéo léo tôn lên nét đẹp dịu dàng của người mặc. Thiết kế tạo điểm nhấn thắt đai ngang eo, giúp che khuyết điểm tốt.', 14),
+(2, 'Camellia Midi - Đầm Lụa Phối Hoa', '/DuAnMau/content/images/image2.1.webp', '/DuAnMau/content/images/image2.2.webp', '/DuAnMau/content/images/image2.3.webp', '/DuAnMau/content/images/image2.4.webp', 100000, NULL, 1, 'hi', 14),
+(3, 'Đầm Cổ Chéo Xếp Ly', '/DuAnMau/content/images/image3.1.webp', '/DuAnMau/content/images/image3.2.webp', '/DuAnMau/content/images/image3.3.webp', '/DuAnMau/content/images/image3.4.webp', 300000, 10, 1, 'met', 9),
+(4, 'Đầm Lụa Trễ Vai Chun Eo Xòe', '/DuAnMau/content/images/image4.1.webp', '/DuAnMau/content/images/image4.2.webp', '/DuAnMau/content/images/image4.3.webp', '/DuAnMau/content/images/image4.4.webp', 10000000, 90, 1, 'hiii', 11),
+(7, 'Blue SEA Dress - Đầm Maxi Họa Tiết', '/DuAnMau/content/images/17209879711.webp', '/DuAnMau/content/images/17209879712.webp', '/DuAnMau/content/images/17209948853.webp', '/DuAnMau/content/images/17209879714.webp', 2000000, 50, 1, 'đẹp', 12),
+(30, 'Áo Thun Regular In Hình', '/DuAnMau/content/images/1721052778nam1.1.webp', '/DuAnMau/content/images/1721052778nam1.2.webp', '/DuAnMau/content/images/1721052778nam1.3.webp', '/DuAnMau/content/images/1721052778nam1.4.webp', 100000, 20, 105, 'hiiii', 1),
+(31, 'Quần Shorts Khaki Dáng Slim Fit', '/DuAnMau/content/images/1721053449nam2.1.webp', '/DuAnMau/content/images/1721053449nam2.2.webp', '/DuAnMau/content/images/1721053449nam2.3.webp', '/DuAnMau/content/images/1721053449nam2.4.webp', 3000000, NULL, 105, 'quan', 1),
+(32, 'Quần Shorts Thun Cạp Chun', '/DuAnMau/content/images/1721054262nam3.1.webp', '/DuAnMau/content/images/1721054262nam3.2.webp', '/DuAnMau/content/images/1721054262nam3.3.webp', '/DuAnMau/content/images/1721054262nam3.4.webp', 999000, NULL, 105, 'huhu', 2),
+(33, 'Quần Shorts Thun Cạp Chun', '/DuAnMau/content/images/1721054515nam4.1.webp', '/DuAnMau/content/images/1721054515nam4.2.webp', '/DuAnMau/content/images/1721054515nam4.4.webp', '/DuAnMau/content/images/1721054515nam4.3.webp', 888888, NULL, 105, 'trum hacker:)))', 0),
+(34, 'Áo Thun Xoắn Eo', '/DuAnMau/content/images/1721054738kid1.1.webp', '/DuAnMau/content/images/1721054738kid1.2.webp', '/DuAnMau/content/images/1721054738kid1.4.webp', '/DuAnMau/content/images/1721054738kid1.3.webp', 120000, NULL, 106, 'kid', 1),
+(35, 'Set Đồ Thun In Họa Tiết', '/DuAnMau/content/images/1721054829kid2.1.webp', '/DuAnMau/content/images/1721054829kid2.2.webp', '/DuAnMau/content/images/1721054829kid2.3.webp', '/DuAnMau/content/images/1721054829kid2.4.webp', 30000, 90, 106, 'kid2', 1),
+(36, 'Áo Polo Bé Trai Create', '/DuAnMau/content/images/1721055021kid3.1.webp', '/DuAnMau/content/images/1721055021kid3.2.webp', '/DuAnMau/content/images/1721055021kid3.3.webp', '/DuAnMau/content/images/1721055021kid3.4.webp', 99000, 99, 106, 'kid3', 2),
+(37, 'Áo Thun Awesome', '/DuAnMau/content/images/1721055092kid4.1.webp', '/DuAnMau/content/images/1721055092kid4.2.webp', '/DuAnMau/content/images/1721055092kid4.3.webp', '/DuAnMau/content/images/1721055092kid4.4.webp', 50000, NULL, 106, 'kid4', 2),
+(38, 'Đầm Babydoll Tay Phồng', '/DuAnMau/content/images/1721055217kid5.1.webp', '/DuAnMau/content/images/1721055217kid5.2.webp', '/DuAnMau/content/images/1721055217kid5.3.webp', '/DuAnMau/content/images/1721055217kid5.4.webp', 80000, NULL, 106, 'kid5\r\n', 1),
+(39, 'Áo Thun Your Dream', '/DuAnMau/content/images/1721055321nam5.1.webp', '/DuAnMau/content/images/1721055321nam5.2.webp', '/DuAnMau/content/images/1721055321nam5.3.webp', '/DuAnMau/content/images/1721055321nam5.4.webp', 70000, NULL, 105, 'nam5', 0);
 
 -- --------------------------------------------------------
 
@@ -88,8 +98,9 @@ CREATE TABLE `khach_hang` (
 --
 
 INSERT INTO `khach_hang` (`ma_khach_hang`, `email`, `so_dien_thoai`, `mat_khau`, `ho_ten`, `hinh_anh`, `kich_hoat`, `vai_tro`) VALUES
-(1, 'admin@gmail.com', '1505', '123', 'admin', NULL, b'1', b'1'),
-(21, 'congtdph52792@gmail.com', '0972964795', '123', 'Nguyễn Văn A', '/DuAnMau/content/images/17209917492.jpg', b'1', b'0');
+(1, 'admin@gmail.com', '1505', '123', 'admin', '/DuAnMau/content/images/admin.jpg', b'1', b'1'),
+(22, 'hi@gmail.com', '0972964795', '123', 'Nguyễn Văn A', '/DuAnMau/content/images/17210543432.jpg', b'1', b'0'),
+(24, 'taconga12@gmail.com', '0987363537', '123', 'Nguyễn Văn A', NULL, b'0', b'0');
 
 -- --------------------------------------------------------
 
@@ -108,7 +119,8 @@ CREATE TABLE `loai_hang` (
 
 INSERT INTO `loai_hang` (`ma_loai_hang`, `ten_loai_hang`) VALUES
 (1, 'IVY moda'),
-(89, 'IVY kids');
+(105, 'IVY men'),
+(106, 'IVY kids');
 
 --
 -- Indexes for dumped tables
@@ -155,19 +167,19 @@ ALTER TABLE `binh_luan`
 -- AUTO_INCREMENT for table `hang_hoa`
 --
 ALTER TABLE `hang_hoa`
-  MODIFY `ma_hang_hoa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `ma_hang_hoa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `khach_hang`
 --
 ALTER TABLE `khach_hang`
-  MODIFY `ma_khach_hang` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `ma_khach_hang` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `loai_hang`
 --
 ALTER TABLE `loai_hang`
-  MODIFY `ma_loai_hang` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `ma_loai_hang` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- Constraints for dumped tables

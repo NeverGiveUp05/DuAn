@@ -2,7 +2,7 @@
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $cost = $_POST['cost'];
-    $discount = $_POST['discount'];
+    $discount = (isset($_POST['discount'])) ? $_POST['discount'] : null;
     $type = $_POST['type'];
     $description = $_POST['description'];
 

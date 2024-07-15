@@ -10,17 +10,13 @@ $detailProduct = hang_selectById($detailId);
 
 function format_number($number)
 {
-    // Chuyển đổi số sang chuỗi
     $number_str = (string) $number;
 
-    // Kiểm tra độ dài của chuỗi
     $length = strlen($number_str);
 
-    // Nếu độ dài nhỏ hơn 5, thêm các số 0 vào đầu
-    if ($length < 5) {
+    if ($length < 7) {
         $formatted_number = str_pad($number_str, 7, '0', STR_PAD_LEFT);
     } else {
-        // Nếu độ dài lớn hơn hoặc bằng 5, giữ nguyên chuỗi
         $formatted_number = $number_str;
     }
 

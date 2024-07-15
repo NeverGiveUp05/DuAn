@@ -61,18 +61,16 @@
 
                         <div class="right-header">
                             <div class="header-action" style="display: flex; align-items: center; gap: 8px;">
-                                <img src="../content/images/cat.jpg" alt="" style="width: 30px; height: 30px; border-radius: 50%;">
+                                <?php
+                                require "../dao/pdo.php";
+                                require "../dao/khach_hang.php";
+                                $id = $_SESSION['user-id'];
+
+                                $user = user_selectById($id);
+                                ?>
+                                <img src="<?php echo $user['hinh_anh'] ?>" alt="" style="width: 30px; height: 30px; border-radius: 50%;">
                                 <a href="#" style="margin-right: 10px;">
-                                    <?php
-                                    require "../dao/pdo.php";
-                                    require "../dao/khach_hang.php";
-
-                                    $id = $_SESSION['user-id'];
-
-                                    $user = user_selectByID($id);
-
-                                    echo $user['ho_ten'];
-                                    ?>
+                                    <?php echo $user['ho_ten']; ?>
                                 </a>
                             </div>
                         </div>
