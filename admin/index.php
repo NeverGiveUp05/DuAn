@@ -14,7 +14,17 @@
 <body style="min-height: 100vh; display: flex; flex-direction:column;">
     <?php
     session_start();
-    if (isset($_SESSION['user-id'])) { ?>
+
+    if (isset($_SESSION['user-id'])) {
+        require "../dao/pdo.php";
+        require "../dao/khach_hang.php";
+
+        $id = $_SESSION['user-id'];
+
+        $user = user_selectById($id);
+    }
+
+    if (isset($user['vai_tro']) && $user['vai_tro'] == 1) { ?>
         <header id="header" style="position: unset;">
             <div class="container" style="background-color: rgba(255, 228, 196, 0.5);  justify-content: flex-end;">
                 <style>
@@ -61,13 +71,6 @@
 
                         <div class="right-header">
                             <div class="header-action" style="display: flex; align-items: center; gap: 8px;">
-                                <?php
-                                require "../dao/pdo.php";
-                                require "../dao/khach_hang.php";
-                                $id = $_SESSION['user-id'];
-
-                                $user = user_selectById($id);
-                                ?>
                                 <img src="<?php echo $user['hinh_anh'] ?>" alt="" style="width: 30px; height: 30px; border-radius: 50%;">
                                 <a href="#" style="margin-right: 10px;">
                                     <?php echo $user['ho_ten']; ?>

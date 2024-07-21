@@ -1,4 +1,8 @@
-<?php session_start() ?>
+<?php session_start();
+require "../dao/pdo.php";
+require "../dao/khach_hang.php";
+require '../dao/loai_hang.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,17 +30,38 @@
                 <a href="./layout.php"><img src="../content/images/logo.png" alt="" /></a>
             </div>
             <div class="right-header">
-                <form action="" class="search-form">
+                <form action="" class="search-form" method="GET">
                     <button><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <input type="text" placeholder="TÌM KIẾM SẢN PHẨM" />
+                    <input type="text" placeholder="TÌM KIẾM SẢN PHẨM" name="search" />
                 </form>
 
                 <div class="header-action">
                     <div class="item"><i class="fa-solid fa-headphones"></i></div>
-                    <a href="?action=user" class="item"><i class="fa-regular fa-user"></i></a>
-                    <div class="item" onClick="openShop()">
-                        <i class="fa-brands fa-shopify"></i><span class="number-cart">0</span>
-                    </div>
+
+                    <?php
+                    if (isset($_SESSION['user-id'])) {
+                        $id = $_SESSION['user-id'];
+
+                        $usercurrent = user_selectById($id);
+                    }
+
+                    if (isset($usercurrent) && $usercurrent['vai_tro'] == 0 && $usercurrent['kich_hoat'] == 1) { ?>
+                        <div class="item" onClick="openShop()" style="position: relative; margin-right: 30px">
+                            <i class="fa-brands fa-shopify"></i><span class="number-cart">0</span>
+                        </div>
+
+                        <div class="header-action" style="display: flex; align-items: center; gap: 6px;">
+                            <img src="<?php echo $usercurrent['hinh_anh'] ?>" alt="" style="width: 28px; height: 28px; border-radius: 50%;">
+                            <a href="./logout.php" style="font-size: 14px;">
+                                Hi, <?php echo $usercurrent['ho_ten']; ?>
+                            </a>
+                        </div>
+                    <?php    } else { ?>
+                        <a href="?action=user" class="item"><i class="fa-regular fa-user"></i></a>
+                        <div class="item" onClick="openShop()">
+                            <i class="fa-brands fa-shopify"></i><span class="number-cart">0</span>
+                        </div>
+                    <?php   } ?>
                 </div>
             </div>
         </div>
@@ -47,6 +72,8 @@
         include './user.php';
     } else if (isset($_GET['detail'])) {
         include './detail.php';
+    } else if (isset($_GET['search']) && $_GET['search'] != '') {
+        include './search.php';
     } else {
         include './home.php';
     };
@@ -161,6 +188,8 @@
     if (isset($_GET['action']) && $_GET['action'] == 'user') {
         echo " <script src='../content/js/shop.js'></script>";
     } else if (isset($_GET['detail'])) {
+        echo " <script src='../content/js/shop.js'></script>";
+    } else if (isset($_GET['search']) && $_GET['search'] != '') {
         echo " <script src='../content/js/shop.js'></script>";
     } else {
         echo " <script src='../content/js/banner.js'></script>";

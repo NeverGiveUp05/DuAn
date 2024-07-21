@@ -9,9 +9,13 @@ if (isset($_POST['submit'])) {
 
     $img_path = uploadFile($image, $folderUploaded);
 
-    user_add($email, $phone, $password, $name, $img_path, $status);
+    $result = user_add($email, $phone, $password, $name, $img_path, $status);
 
-    $_SESSION['add_user'] = 'success';
+    if ($result !== false) {
+        $_SESSION['add_user'] = 'success';
+    } else {
+        $_SESSION['add_user'] = 'error';
+    }
 }
 
 if (isset($_SESSION['add_user']) && $_SESSION['add_user'] == 'success') { ?>
@@ -21,6 +25,20 @@ if (isset($_SESSION['add_user']) && $_SESSION['add_user'] == 'success') { ?>
             title: 'Success!',
             text: 'Thêm thành công',
             icon: 'success',
+            confirmButtonText: 'Xác nhận',
+        })
+    </script>
+<?php
+    $_SESSION['add_user'] = null;
+}; ?>
+
+<?php if (isset($_SESSION['add_user']) && $_SESSION['add_user'] == 'error') { ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            title: 'Error!',
+            text: 'Email đã tồn tại',
+            icon: 'error',
             confirmButtonText: 'Xác nhận',
         })
     </script>

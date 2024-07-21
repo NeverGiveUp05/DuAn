@@ -1,37 +1,78 @@
 <main id="main">
     <div class="container">
-        <div class="nav">
-            <div class="nav-info left-nav">
-                <a href="#"><span>SALE all 50% + thêm 10% HĐ từ 2 SP</span></a>
-            </div>
-            <div class="nav-info center-nav">
-                <a href="#"><span>SALE UPTO 75% </span></a>
-            </div>
-            <div class="nav-info right-nav">
-                <a href="#"><span>NEW ARRIVAL + giảm 10% HĐ từ 2 SP</span></a>
-            </div>
-        </div>
+        <p style="margin: 30px 0 5px; font-size: 20px; font-weight: 500">Kết quả tìm kiếm cho: <?php echo $_GET['search'] ?></p>
+        <section id="product">
+            <div class="wrap">
+                <div id="product-show">
+                    <div class="content">
 
-        <section id="banner">
-            <div class="pseudo">
-                <div class="wrapper">
-                    <i class="fa-solid fa-arrow-left-long arrow-left" onClick="prev()"></i>
+                        <?php
+                        require_once '../dao/pdo.php';
+                        require '../dao/hang_hoa.php';
 
-                    <img id="slide-img" src="../content/images/banner2.jpg" alt="" />
+                        $products = hang_selectAll();
 
-                    <i class="fa-solid fa-arrow-right-long arrow-right" onClick="next()"></i>
+                        $name = str_replace(" ", "", mb_strtolower($_GET['search']));
 
-                    <div id="list-dot">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
+                        $find = false;
+
+                        foreach ($products as $product) {
+                            $namedata = str_replace(" ", "", mb_strtolower($product['ten_hang_hoa']));
+                            if (str_contains($namedata, $name)) { ?>
+                                <div class="box" style="min-height: 493px; margin-top: 20px">
+                                    <div class="cart">NEW</div>
+                                    <a href="?detail=<?php echo $product['ma_hang_hoa'] ?>" style="display: block; margin-bottom: 17px; max-height: 369px">
+                                        <img class="cart-img" src="<?php echo $product['hinh_anh'] ?>" alt="" />
+                                        <img class="pseudo-img" src="<?php echo $product['hinh_anh_nen'] ?>" alt="" />
+                                    </a>
+
+                                    <div class="detail">
+                                        <div class="detail-head">
+                                            <div class="list-color">
+                                                <div class="color color-c5a782"></div>
+                                                <div class="color color-a3784e"></div>
+                                                <div class="color color-ec6795 checked"></div>
+                                            </div>
+                                            <div class="heart">
+                                                <span style="font-size: 13px; margin-right: 4px; color: #57585a;"><?php echo $product['so_luot_xem'] ?></span>
+                                                <i class="fa-solid fa-eye" style="font-size: 12px; color: #57585a; margin-right: 12px"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="detail-desp"><?php echo $product['ten_hang_hoa'] ?></div>
+
+                                        <div class="detail-foot">
+                                            <div class="price">
+                                                <span><?php if (isset($product['muc_giam_gia'])) {
+                                                            $cost = $product['don_gia'] * (100 - $product['muc_giam_gia']) / 100;
+                                                        } else {
+                                                            $cost = $product['don_gia'];
+                                                        }
+                                                        echo number_format($cost, 0, '', '.'); ?>đ</span>
+                                                <?php if (isset($product['muc_giam_gia'])) { ?>
+                                                    <del><?php echo number_format($product['don_gia'], 0, '', '.'); ?>đ</del>
+                                                <?php   } ?>
+                                            </div>
+                                            <div class="add-to-cart" onClick="addPro({name: '<?php echo $product['ten_hang_hoa'] ?>', price: <?php echo $cost ?>, img:'<?php echo $product['hinh_anh'] ?>'})">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        <?php $find = true;
+                            }
+                        } ?>
+
+                        <?php if (!$find) { ?>
+                            <p style="width: 500px; margin-top: 15px; font-size: 18px">Không tìm thấy sản phẩm nào</p>
+                        <?php  } ?>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="product">
-            <div class="title-section">NEW ARRIVAL</div>
+        <section id="product" style="padding-top: 25px;">
+            <div class="title-section">Có thể bạn quan tâm</div>
             <div class="wrap">
                 <div class="head">
                     <ul>
@@ -67,9 +108,6 @@
                     <div class="content">
 
                         <?php
-                        require_once '../dao/pdo.php';
-                        require '../dao/hang_hoa.php';
-
                         if (isset($_GET['list'])) {
                             $products = hang_selectByLoaiHang($_GET['list']);
                         } else {
@@ -158,6 +196,6 @@
 
         localStorage.setItem('scroll', currentScrollPosition);
 
-        window.location.href = '?list=' + maLoaiHang;
+        window.location.href = '?search=<?php echo $_GET['search'] ?>&list=' + maLoaiHang;
     }
 </script>

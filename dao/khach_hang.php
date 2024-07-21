@@ -19,6 +19,10 @@ function user_selectById($id)
 
 function user_delete($id)
 {
+    $sql = "DELETE FROM binh_luan WHERE ma_khach_hang = $id";
+
+    pdo_execute($sql);
+
     $sql = "DELETE FROM khach_hang WHERE ma_khach_hang = ?";
 
     pdo_execute($sql, $id);
@@ -26,6 +30,14 @@ function user_delete($id)
 
 function user_add($email, $so_dien_thoai, $mat_khau, $ho_ten, $hinh_anh, $kich_hoat)
 {
+    $users = user_selectAll();
+
+    foreach ($users as $user) {
+        if ($user['email'] == $email) {
+            return false;
+        }
+    }
+
     if (isset($hinh_anh)) {
         $sql = "INSERT INTO khach_hang VALUES (null, '$email', '$so_dien_thoai', '$mat_khau', '$ho_ten', '$hinh_anh', b'$kich_hoat', DEFAULT)";
     } else {
@@ -48,6 +60,10 @@ function user_update($id, $email, $so_dien_thoai, $mat_khau, $ho_ten, $hinh_anh,
 
 function user_multipleDelete($ids)
 {
+    $sql = "DELETE FROM binh_luan WHERE ma_khach_hang IN ($ids)";
+
+    pdo_execute($sql);
+
     $sql = "DELETE FROM khach_hang WHERE ma_khach_hang IN ($ids)";
 
     pdo_execute($sql);

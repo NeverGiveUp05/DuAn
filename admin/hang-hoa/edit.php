@@ -127,7 +127,7 @@ if (isset($_POST['submit'])) {
 
     <div class="col-md-6 mb-3">
         <label class="form-label">Mô tả</label>
-        <textarea class="form-control" name="description" id="" style="height: 120px;" required><?php echo $product['mo_ta_hang_hoa'] ?></textarea>
+        <textarea spellcheck="false" class="form-control" name="description" id="" style="height: 120px;" required><?php echo $product['mo_ta_hang_hoa'] ?></textarea>
         <div class="invalid-feedback">
             Vui lòng nhập mô tả
         </div>

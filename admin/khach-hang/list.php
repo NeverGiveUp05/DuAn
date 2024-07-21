@@ -58,12 +58,12 @@ if (isset($_SESSION['user_multiDelete']) && $_SESSION['user_multiDelete'] == 'su
 <table class="table table-striped">
     <thead>
         <tr>
-            <th scope="col"></th>
-            <th scope="col">Email</th>
-            <th scope="col">Tên khách hàng</th>
-            <th scope="col">Hình ảnh</th>
-            <th scope="col">Số điện thoại</th>
-            <th scope="col">Trạng thái</th>
+            <th scope="col" style="font-weight: 600;"></th>
+            <th scope="col" style="font-weight: 600;">Email</th>
+            <th scope="col" style="font-weight: 600;">Tên khách hàng</th>
+            <th scope="col" style="font-weight: 600;">Hình ảnh</th>
+            <th scope="col" style="font-weight: 600;">Số điện thoại</th>
+            <th scope="col" style="font-weight: 600;">Trạng thái</th>
         </tr>
     </thead>
     <tbody>
@@ -93,8 +93,8 @@ if (isset($_SESSION['user_multiDelete']) && $_SESSION['user_multiDelete'] == 'su
                         <td>Vô hiệu hóa</td>
                     <?php } ?>
                     <td>
-                        <button class="btn btn-warning btn-sm"><a style="color: #000" href="?edit&id=<?php echo $item['ma_khach_hang'] ?>">Sửa</a></button>
-                        <button class="btn btn-danger btn-sm"><a style="color: #fff" href="?delete&id=<?php echo $item['ma_khach_hang'] ?>">Xóa</a></button>
+                        <a class="btn btn-warning btn-sm" style="color: #000" href="?edit&id=<?php echo $item['ma_khach_hang'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a class="btn btn-danger btn-sm" style="color: #fff" href="?delete&id=<?php echo $item['ma_khach_hang'] ?>"><i class="fa-solid fa-trash-can"></i></a>
                     </td>
                 </tr>
         <?php    }

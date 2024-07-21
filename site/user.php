@@ -1,8 +1,5 @@
 <?php
 if (isset($_POST['login'])) {
-    require '../dao/pdo.php';
-    require '../dao/khach_hang.php';
-
     $users = user_selectAll();
 
     $account = $_POST['account'];
@@ -17,9 +14,13 @@ if (isset($_POST['login'])) {
             if ($user['vai_tro'] == 1 && $user['kich_hoat'] == 1) {
                 $_SESSION['user-id'] = $user['ma_khach_hang'];
 
+                $kich_hoat = true;
+
                 header('location: ../admin');
             } else if ($user['vai_tro'] == 0 && $user['kich_hoat'] == 1) {
                 $_SESSION['user-id'] = $user['ma_khach_hang'];
+
+                $kich_hoat = true;
 
                 header('location: ./layout.php');
             }

@@ -48,6 +48,10 @@ function hang_update($id, $name, $img_path, $img_path1, $img_path2, $img_path3, 
 
 function hang_delete($id)
 {
+    $sql = "DELETE FROM binh_luan WHERE ma_hang_hoa = $id";
+
+    pdo_execute($sql);
+
     $sql = "DELETE FROM hang_hoa WHERE ma_hang_hoa = ?";
 
     pdo_execute($sql, $id);
@@ -55,6 +59,23 @@ function hang_delete($id)
 
 function hang_multipleDelete($ids)
 {
-    $sql = "DELETE FROM hang_hoa WHERE ma_hang_hoa IN ($ids)";
+    $sql = "DELETE FROM binh_luan WHERE ma_hang_hoa IN ($ids)";
+
     pdo_execute($sql);
+
+    $sql = "DELETE FROM hang_hoa WHERE ma_hang_hoa IN ($ids)";
+
+    pdo_execute($sql);
+}
+
+function hang_getMinPriceByLoaiHang($id)
+{
+    $sql = "SELECT * FROM hang_hoa WHERE ma_loai_hang = ? ORDER BY don_gia ASC LIMIT 1";
+    return pdo_query_one($sql, $id);
+}
+
+function hang_getMaxPriceByLoaiHang($id)
+{
+    $sql = "SELECT * FROM hang_hoa WHERE ma_loai_hang = $id ORDER BY don_gia desc LIMIT 1";
+    return pdo_query_one($sql);
 }

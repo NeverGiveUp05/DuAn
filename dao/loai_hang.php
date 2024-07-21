@@ -31,16 +31,15 @@ function loai_add($ten_loai_hang)
 
 function loai_delete($ma_loai)
 {
-    $sql = "UPDATE hang_hoa SET ma_loai_hang = NULL WHERE ma_loai_hang = ?";
-
-    pdo_execute($sql, $ma_loai);
-
-    $sql = "SELECT ma_hang_hoa FROM hang_hoa WHERE ma_loai_hang IS NULL";
+    $sql = "SELECT ma_hang_hoa FROM hang_hoa WHERE ma_loai_hang = $ma_loai";
 
     $array = pdo_query($sql);
 
     foreach ($array as $product) {
         $id = $product['ma_hang_hoa'];
+
+        $sql = "DELETE FROM binh_luan WHERE ma_hang_hoa = $id";
+        pdo_execute($sql);
 
         $productCurrent = selectHangById($id);
 
@@ -59,7 +58,7 @@ function loai_delete($ma_loai)
         unlink($_SERVER['DOCUMENT_ROOT'] . $img_path);
     }
 
-    $sql = "DELETE FROM hang_hoa WHERE ma_loai_hang IS NULL";
+    $sql = "DELETE FROM hang_hoa WHERE ma_loai_hang = $ma_loai";
 
     pdo_execute($sql);
 
@@ -76,16 +75,15 @@ function loai_update($id, $name)
 
 function loai_multipleDelete($ids)
 {
-    $sql = "UPDATE hang_hoa SET ma_loai_hang = NULL WHERE ma_loai_hang IN ($ids)";
-
-    pdo_execute($sql);
-
-    $sql = "SELECT ma_hang_hoa FROM hang_hoa WHERE ma_loai_hang IS NULL";
+    $sql = "SELECT ma_hang_hoa FROM hang_hoa WHERE ma_loai_hang IN ($ids)";
 
     $array = pdo_query($sql);
 
     foreach ($array as $product) {
         $id = $product['ma_hang_hoa'];
+
+        $sql = "DELETE FROM binh_luan WHERE ma_hang_hoa = $id";
+        pdo_execute($sql);
 
         $productCurrent = selectHangById($id);
 
@@ -104,7 +102,7 @@ function loai_multipleDelete($ids)
         unlink($_SERVER['DOCUMENT_ROOT'] . $img_path);
     }
 
-    $sql = "DELETE FROM hang_hoa WHERE ma_loai_hang IS NULL";
+    $sql = "DELETE FROM hang_hoa WHERE ma_loai_hang IN ($ids)";
 
     pdo_execute($sql);
 

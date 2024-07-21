@@ -1,5 +1,13 @@
 <?php
-require '../dao/pdo.php';
+require "../dao/binh_luan.php";
+date_default_timezone_set("Asia/Ho_Chi_Minh");
+
+if (isset($_POST['submit'])) {
+    comment_add($_POST['comment'], date("Y-m-d"), $_GET['detail'], $_SESSION['user-id']);
+}
+?>
+
+<?php
 require '../dao/hang_hoa.php';
 
 $detailId = $_GET['detail'];
@@ -25,29 +33,76 @@ function format_number($number)
 
 $currentImg = $detailProduct['hinh_anh'];
 ?>
-<link rel="stylesheet" href="../content/css/detail.css">
 
+<link rel="stylesheet" href="../content/css/detail.css">
 <main id="main">
     <section class="container">
         <div class="product-detail">
             <div class="pro-left">
-                <div class="wrap">
-                    <img id="image" src="<?php echo $detailProduct['hinh_anh'] ?>" alt="" class="main-img" onMouseOver="handleAddPosition()" />
-                    <div id="pseudoImg" class="pseudo"></div>
+                <div class="pro-left_top">
+                    <div class="wrap">
+                        <img id="image" src="<?php echo $detailProduct['hinh_anh'] ?>" alt="" class="main-img" onMouseOver="handleAddPosition()" />
+                        <div id="pseudoImg" class="pseudo"></div>
+                    </div>
+
+                    <div class="slide-show">
+                        <div class="prev" onClick="prev()">
+                            <i class="fa-solid fa-angle-up"></i>
+                        </div>
+                        <div class="wrapper-image">
+                            <img src="<?php echo $detailProduct['hinh_anh'] ?>" alt="" class="slide-img" onClick="setCurrentImg('<?php echo $detailProduct['hinh_anh'] ?>')" />
+                            <img src="<?php echo $detailProduct['hinh_anh_nen'] ?>" alt="" class="slide-img" onClick="setCurrentImg('<?php echo $detailProduct['hinh_anh_nen'] ?>')" />
+                            <img src="<?php echo $detailProduct['hinh_anh_1'] ?>" alt="" class="slide-img" onClick="setCurrentImg('<?php echo $detailProduct['hinh_anh_1'] ?>')" />
+                            <img src="<?php echo $detailProduct['hinh_anh_2'] ?>" alt="" class="slide-img" onClick="setCurrentImg('<?php echo $detailProduct['hinh_anh_2'] ?>')" />
+                        </div>
+                        <div class="next" onClick="next()">
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="slide-show">
-                    <div class="prev" onClick="prev()">
-                        <i class="fa-solid fa-angle-up"></i>
+                <?php if (isset($_SESSION['user-id'])) {
+                    $id = $_SESSION['user-id'];
+
+                    $usercurrent = user_selectById($id);
+                }
+                ?>
+
+                <div class="pro-left_bottom">
+                    <div class="tb-comment_top">
+                        <p class="tb-title">Bình luận</p>
                     </div>
-                    <div class="wrapper-image">
-                        <img src="<?php echo $detailProduct['hinh_anh'] ?>" alt="" class="slide-img" onClick="setCurrentImg('<?php echo $detailProduct['hinh_anh'] ?>')" />
-                        <img src="<?php echo $detailProduct['hinh_anh_nen'] ?>" alt="" class="slide-img" onClick="setCurrentImg('<?php echo $detailProduct['hinh_anh_nen'] ?>')" />
-                        <img src="<?php echo $detailProduct['hinh_anh_1'] ?>" alt="" class="slide-img" onClick="setCurrentImg('<?php echo $detailProduct['hinh_anh_1'] ?>')" />
-                        <img src="<?php echo $detailProduct['hinh_anh_2'] ?>" alt="" class="slide-img" onClick="setCurrentImg('<?php echo $detailProduct['hinh_anh_2'] ?>')" />
+
+                    <div class="tb-comment_content">
+                        <ul>
+                            <?php
+                            $comments = comment_getAllByLoaiHang($_GET['detail']);
+
+                            if (!empty($comments)) {
+                                foreach ($comments as $comment) { ?>
+                                    <li>
+                                        <p class="text-comment"><?php echo $comment['noi_dung'] ?></p>
+                                        <div class="info">
+                                            <span class="info-name"><?php echo user_selectById($comment['ma_khach_hang'])['ho_ten'] ?></span>
+                                            <span class="info-time"><?php echo $comment['ngay_dang'] ?></span>
+                                        </div>
+                                    </li>
+                                <?php }
+                            } else { ?>
+                                <li>Chưa có bình luận nào</li>
+                            <?php  } ?>
+                        </ul>
                     </div>
-                    <div class="next" onClick="next()">
-                        <i class="fa-solid fa-angle-down"></i>
+
+                    <div class="tb-comment_bottom">
+                        <?php if (isset($_SESSION['user-id'])) { ?>
+                            <form action="" method="POST">
+                                <input type="text" name="comment" id="commentInput">
+                                <button id="commentBtn" type="submit" name="submit">Gửi</button>
+                            </form>
+                        <?php } else { ?>
+                            <p>Bạn cần đăng nhập để bình luận</p>
+                        <?php   } ?>
                     </div>
                 </div>
             </div>
@@ -147,7 +202,7 @@ $currentImg = $detailProduct['hinh_anh'];
                         </div>
                     </div>
                     <div class="tab-body">
-                        <div class="tab-content active">
+                        <div id="content" class="tab-content active">
                             <p>
                                 <?php echo $detailProduct['mo_ta_hang_hoa'] ?>
                             </p>
@@ -292,8 +347,9 @@ $currentImg = $detailProduct['hinh_anh'];
                             </p>
                         </div>
                         <div class="show-more">
-                            <div class="circle-caret">
-                                <i class="fa-solid fa-angle-down"></i>
+                            <div id="btn-more" class="circle-caret">
+                                <i id="angle-down" class="fa-solid fa-angle-down"></i>
+                                <i id="angle-up" class="fa-solid fa-angle-up d-none"></i>
                             </div>
                         </div>
                     </div>
@@ -307,6 +363,10 @@ $currentImg = $detailProduct['hinh_anh'];
     const image = document.getElementById("image");
     const pseudoImg = document.getElementById("pseudoImg");
     let currentImage = "<?php echo $currentImg ?>";
+    const content = document.getElementById("content");
+    const btnMore = document.getElementById("btn-more");
+    const angleDown = document.getElementById("angle-down");
+    const angleUp = document.getElementById("angle-up");
 
     let heightImg = image.height;
     pseudoImg.style.height = heightImg + "px";
@@ -341,4 +401,10 @@ $currentImg = $detailProduct['hinh_anh'];
         heightImg = image.height;
         pseudoImg.style.height = heightImg + "px";
     }
+
+    btnMore.addEventListener('click', function() {
+        content.classList.toggle('heightauto');
+        angleDown.classList.toggle('d-none');
+        angleUp.classList.toggle('d-none');
+    })
 </script>

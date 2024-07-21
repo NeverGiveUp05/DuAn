@@ -2,12 +2,17 @@
 require '../../global.php';
 require "../../dao/pdo.php";
 require "../../dao/loai_hang.php";
+require "../../dao/khach_hang.php";
+require "../../dao/hang_hoa.php";
+
 session_start();
 
-if (exist_param("btn_list")) {
-    $VIEW_NAME = "list.php";
-} else {
+$active = 'thong_ke';
+
+if (exist_param("chart")) {
     $VIEW_NAME = "chart.php";
+} else {
+    $VIEW_NAME = "list.php";
 }
 
 require "../layout.php";

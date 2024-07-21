@@ -13,7 +13,13 @@
 
 <body style="min-height: 100vh; display: flex; flex-direction:column;">
     <?php
-    if (isset($_SESSION['user-id'])) { ?>
+    if (isset($_SESSION['user-id'])) {
+        $id = $_SESSION['user-id'];
+
+        $user = user_selectById($id);
+    }
+
+    if (isset($user['vai_tro']) && $user['vai_tro'] == 1) { ?>
         <header id="header" style="position: unset;">
             <div class="container" style="background-color: rgba(255, 228, 196, 0.5);  justify-content: flex-end;">
                 <style>

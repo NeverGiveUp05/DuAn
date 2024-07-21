@@ -3,6 +3,7 @@ require '../../global.php';
 require "../../dao/pdo.php";
 require "../../dao/loai_hang.php";
 require "../../dao/hang_hoa.php";
+require "../../dao/khach_hang.php";
 
 session_start();
 

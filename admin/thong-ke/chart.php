@@ -1,33 +1,63 @@
-<!DOCTYPE html>
-<html>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<div style="height: 400px; width: 400px">
+    <canvas id="myChart"></canvas>
+</div>
 
-<body>
+<a href="./" class="btn btn-outline-primary btn-sm mt-2">Quay lại</a>
 
-    <div id="myPlot" style="width:100%;max-width:700px"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
-        const xArray = ["Italy", "France", "Spain", "USA", "Argentina"];
-        const yArray = [55, 49, 44, 24, 15];
+<?php
+$category = loai_selectAll();
+?>
 
-        const layout = {
-            title: "World Wide Wine Production",
-            font: {
-                size: 14
-            },
+<?php foreach ($category as $item) {
+    $array[] = $item['ten_loai_hang'];
 
-        };
+    $id = $item['ma_loai_hang'];
+    $quantity = count(hang_selectByLoaiHang($id));
+    $arrayCount[] = $quantity;
+}
 
-        const data = [{
-            labels: xArray,
-            values: yArray,
-            type: "pie",
+$string = join('", "', $array);
+$value = '["' . $string . '"]';
 
-        }];
+$json = json_encode($value);
+$labels = json_decode($json);
 
-        Plotly.newPlot("myPlot", data, layout);
-    </script>
+////////////////////////////////////
+$string1 = join('", "', $arrayCount);
+$value1 = '["' . $string1 . '"]';
 
-</body>
+$json1 = json_encode($value1);
+$quantity = json_decode($json1);
+?>
 
-</html>
+<script>
+    const ctx = document.getElementById('myChart');
+    const lables = <?php echo $labels ?>;
+    const quantity = <?php echo $quantity ?>;
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: lables,
+            datasets: [{
+                label: 'Quantity: ',
+                data: quantity,
+                borderWidth: 1,
+            }],
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        font: {
+                            size: 14,
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
