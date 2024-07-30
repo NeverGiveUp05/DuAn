@@ -96,8 +96,8 @@ $currentImg = $detailProduct['hinh_anh'];
 
                     <div class="tb-comment_bottom">
                         <?php if (isset($_SESSION['user-id'])) { ?>
-                            <form action="" method="POST">
-                                <input type="text" name="comment" id="commentInput">
+                            <form id="comment-form" action="" method="POST">
+                                <input autocomplete="off" type="text" name="comment" id="commentInput">
                                 <button id="commentBtn" type="submit" name="submit">Gửi</button>
                             </form>
                         <?php } else { ?>
@@ -174,18 +174,18 @@ $currentImg = $detailProduct['hinh_anh'];
                 <div class="quantity">
                     <p>Số lượng</p>
                     <div class="quantity-option">
-                        <input class="quantity-input" type="number" value="1" name="quantity" />
-                        <div class="quantity-increase">
+                        <input id="inputBox" class="quantity-input" type="number" value="1" name="quantity" />
+                        <div class="quantity-increase" onClick="increaseValue()">
                             <i class="fa-solid fa-plus"></i>
                         </div>
-                        <div class="quantity-decrease">
+                        <div class="quantity-decrease" onClick="decreaseValue()">
                             <i class="fa-solid fa-minus"></i>
                         </div>
                     </div>
                 </div>
 
                 <div class="actions">
-                    <button class="btn-add" onClick="addPro({name: '<?php echo $detailProduct['ten_hang_hoa'] ?>', price: <?php echo $cost ?>, img:'<?php echo $detailProduct['hinh_anh'] ?>'})">Thêm vào giỏ</button>
+                    <button class="btn-add" onClick="addProPass({name: '<?php echo $detailProduct['ten_hang_hoa'] ?>', price: <?php echo $cost ?>, img:'<?php echo $detailProduct['hinh_anh'] ?>'})">Thêm vào giỏ</button>
                     <button class="btn-buy">Mua hàng</button>
                 </div>
 
@@ -407,4 +407,43 @@ $currentImg = $detailProduct['hinh_anh'];
         angleDown.classList.toggle('d-none');
         angleUp.classList.toggle('d-none');
     })
+
+    // shop
+    const inputBox = document.getElementById('inputBox');
+
+    const addProPass = (item) => {
+        let quantity = Number(inputBox.value);
+
+        if (quantity > 99 || quantity <= 0) {
+            Swal.fire({
+                title: "Error!",
+                text: "Số lượng không hợp lệ",
+                icon: "error",
+                confirmButtonText: "Xác nhận",
+            });
+        } else {
+            addPro(item, quantity);
+        }
+
+        inputBox.value = 1;
+    }
+
+    const increaseValue = () => {
+        if (Number(inputBox.value) > 99) {
+            Swal.fire({
+                title: "Error!",
+                text: "Vượt quá số lượng",
+                icon: "error",
+                confirmButtonText: "Xác nhận",
+            });
+        } else {
+            inputBox.value = Number(inputBox.value) + 1;
+        }
+    }
+
+    const decreaseValue = () => {
+        if (Number(inputBox.value) > 1) {
+            inputBox.value = Number(inputBox.value) - 1;
+        }
+    }
 </script>

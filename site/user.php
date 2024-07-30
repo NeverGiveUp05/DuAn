@@ -16,13 +16,13 @@ if (isset($_POST['login'])) {
 
                 $kich_hoat = true;
 
-                header('location: ../admin');
+                echo '<script>window.location.href = "../admin"</script>';
             } else if ($user['vai_tro'] == 0 && $user['kich_hoat'] == 1) {
                 $_SESSION['user-id'] = $user['ma_khach_hang'];
 
                 $kich_hoat = true;
 
-                header('location: ./layout.php');
+                echo '<script>window.location.href = "./layout.php"</script>';
             }
 
             $found = true;
@@ -77,7 +77,7 @@ if (isset($_POST['login'])) {
                                     <input class="form-control" name="account" type="email" placeholder="Email" required />
                                 </div>
                                 <div class="form-group" style="position: relative;">
-                                    <input id="passwordIp" class="form-control" name="password" type="password" placeholder="Mật khẩu" style="padding-right: 40px;" required />
+                                    <input id="passwordIp" class="form-control" name="password" type="password" autocomplete="off" placeholder="Mật khẩu" style="padding-right: 40px;" required />
 
                                     <i class="fa-regular fa-eye-slash eye"></i>
                                 </div>
@@ -116,7 +116,7 @@ if (isset($_POST['login'])) {
                             </p>
 
                             <div class="auth__form__buttons">
-                                <a href="?action=">
+                                <a href="?action=register">
                                     <button class="btn btn--large">Đăng ký</button></a>
                             </div>
                         </div>

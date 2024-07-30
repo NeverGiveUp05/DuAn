@@ -3,140 +3,6 @@ const listNumberCart = document.getElementsByClassName("number-cart");
 const main = document.getElementById("main-shop");
 const total = document.getElementById("total");
 
-let arrPro = [];
-
-if (arrPro.length == 0) {
-    main.innerText = "Bạn chưa có sản phẩm nào";
-}
-
-const openShop = () => {
-    shopping.classList.add("open");
-};
-
-const closeShop = () => {
-    shopping.classList.remove("open");
-};
-
-const addPro = (item) => {
-    let quantity = 1;
-    let check = false;
-
-    switch (item.name) {
-        case "Lantana Dress - Đầm Xòe Phối Đai": {
-            arrPro.forEach((obj) => {
-                if (obj.name == "Lantana Dress - Đầm Xòe Phối Đai") {
-                    check = true;
-                }
-            });
-
-            if (check) {
-                arrPro.forEach((obj) => {
-                    if (obj.name == "Lantana Dress - Đầm Xòe Phối Đai") {
-                        obj.quantity += 1;
-                    }
-                });
-            } else {
-                item = { ...item, quantity };
-                arrPro.push(item);
-            }
-
-            break;
-        }
-
-        case "Áo Sơ Mi PEPLUM Cổ Đức": {
-            arrPro.forEach((obj) => {
-                if (obj.name == "Áo Sơ Mi PEPLUM Cổ Đức") {
-                    check = true;
-                }
-            });
-
-            if (check) {
-                arrPro.forEach((obj) => {
-                    if (obj.name == "Áo Sơ Mi PEPLUM Cổ Đức") {
-                        obj.quantity += 1;
-                    }
-                });
-            } else {
-                item = { ...item, quantity };
-                arrPro.push(item);
-            }
-
-            break;
-        }
-
-        case "Áo Blazer Dahlia Set": {
-            arrPro.forEach((obj) => {
-                if (obj.name == "Áo Blazer Dahlia Set") {
-                    check = true;
-                }
-            });
-            if (check) {
-                arrPro.forEach((obj) => {
-                    if (obj.name == "Áo Blazer Dahlia Set") {
-                        obj.quantity += 1;
-                    }
-                });
-            } else {
-                item = { ...item, quantity };
-                arrPro.push(item);
-            }
-
-            break;
-        }
-
-        case "Áo Kiểu Youthful Set": {
-            arrPro.forEach((obj) => {
-                if (obj.name == "Áo Kiểu Youthful Set") {
-                    check = true;
-                }
-            });
-
-            if (check) {
-                arrPro.forEach((obj) => {
-                    if (obj.name == "Áo Kiểu Youthful Set") {
-                        obj.quantity += 1;
-                    }
-                });
-            } else {
-                item = { ...item, quantity };
-                arrPro.push(item);
-            }
-
-            break;
-        }
-
-        case "Cosmos Set - Áo Công Sở Peplum Và Chân Váy Xòe": {
-            arrPro.forEach((obj) => {
-                if (obj.name == "Cosmos Set - Áo Công Sở Peplum Và Chân Váy Xòe") {
-                    check = true;
-                }
-            });
-
-            if (check) {
-                arrPro.forEach((obj) => {
-                    if (obj.name == "Cosmos Set - Áo Công Sở Peplum Và Chân Váy Xòe") {
-                        obj.quantity += 1;
-                    }
-                });
-            } else {
-                item = { ...item, quantity };
-                arrPro.push(item);
-            }
-
-            break;
-        }
-
-        default: {
-            console.log("them san pham loi");
-            break;
-        }
-    }
-
-    makeShop();
-    makeTotal();
-    makeCountPro();
-};
-
 const makeShop = () => {
     main.innerHTML = "";
 
@@ -163,12 +29,136 @@ const makeShop = () => {
                     <div class="quantity-right" onClick="increase(this)"><i class="fa-solid fa-plus"></i></div>
                 </div>
     
-                <div class="item-price">${new Intl.NumberFormat().format(item.price * item.quantity)}₫</div>
+                <div class="item-price">${new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                    currencyDisplay: "symbol",
+                }).format(item.price * item.quantity)}</div>
             </div>
         </div>
     </div>
     `;
     });
+};
+
+const makeTotal = () => {
+    let result = 0;
+
+    arrPro.forEach((item) => {
+        result += item.price * item.quantity;
+    });
+
+    result = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+        currencyDisplay: "symbol",
+    }).format(result);
+
+    total.innerText = result;
+};
+
+const makeCountPro = () => {
+    let result = arrPro.reduce((count, item) => count + item.quantity, 0);
+    listNumberCart[0].innerText = listNumberCart[1].innerText = result;
+};
+
+const makeDataShop = () => {
+    makeShop();
+
+    makeTotal();
+
+    makeCountPro();
+};
+
+localStorage.getItem("shop")
+    ? (function running() {
+          arrPro = JSON.parse(localStorage.getItem("shop"));
+
+          makeDataShop();
+      })()
+    : (arrPro = []);
+
+if (arrPro.length == 0) {
+    main.innerText = "Bạn chưa có sản phẩm nào";
+}
+
+const openShop = () => {
+    shopping.classList.add("open");
+};
+
+const closeShop = () => {
+    shopping.classList.remove("open");
+};
+
+const addPro = (item, value) => {
+    const find = arrPro.findIndex((product) => {
+        return item.name === product.name;
+    });
+
+    if (find === -1) {
+        if (value) {
+            item = { ...item, quantity: value };
+        } else {
+            item = { ...item, quantity: 1 };
+        }
+
+        arrPro.push(item);
+
+        Swal.fire({
+            title: "Success!",
+            text: "Đã thêm vào giỏ hàng",
+            icon: "success",
+            confirmButtonText: "Xác nhận",
+        });
+    } else {
+        if (arrPro[find].quantity == 99) {
+            Swal.fire({
+                title: "Error!",
+                text: "Vượt quá số lượng",
+                icon: "error",
+                confirmButtonText: "Xác nhận",
+            });
+        } else {
+            if (value) {
+                let result = arrPro[find].quantity + value;
+
+                if (result > 99) {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Vượt quá số lượng",
+                        icon: "error",
+                        confirmButtonText: "Xác nhận",
+                    });
+                } else {
+                    arrPro[find].quantity = result;
+
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Đã thêm vào giỏ hàng",
+                        icon: "success",
+                        confirmButtonText: "Xác nhận",
+                    });
+                }
+            } else {
+                arrPro[find].quantity += 1;
+
+                Swal.fire({
+                    title: "Success!",
+                    text: "Đã thêm vào giỏ hàng",
+                    icon: "success",
+                    confirmButtonText: "Xác nhận",
+                });
+            }
+        }
+    }
+
+    makeDataShop();
+
+    localStorage.setItem("shop", JSON.stringify(arrPro));
 };
 
 const reduce = (item) => {
@@ -181,22 +171,31 @@ const reduce = (item) => {
         }
     });
 
-    makeShop();
-    makeTotal();
-    makeCountPro();
+    makeDataShop();
+
+    localStorage.setItem("shop", JSON.stringify(arrPro));
 };
 
 const increase = (item) => {
     let productName = item.parentElement.getAttribute("data-name");
     arrPro.forEach((obj, index) => {
         if (obj.name === productName) {
-            arrPro[index].quantity += 1;
+            if (arrPro[index].quantity == 99) {
+                Swal.fire({
+                    title: "Error!",
+                    text: "Vượt quá số lượng",
+                    icon: "error",
+                    confirmButtonText: "Xác nhận",
+                });
+            } else {
+                arrPro[index].quantity += 1;
+            }
         }
     });
 
-    makeShop();
-    makeTotal();
-    makeCountPro();
+    makeDataShop();
+
+    localStorage.setItem("shop", JSON.stringify(arrPro));
 };
 
 const removePro = (item) => {
@@ -207,13 +206,13 @@ const removePro = (item) => {
         }
     });
 
-    makeShop();
-    makeTotal();
-    makeCountPro();
+    makeDataShop();
+
+    localStorage.setItem("shop", JSON.stringify(arrPro));
 };
 
 const typeValue = (element, value) => {
-    if (Number(value) > 0) {
+    if (Number(value) > 0 && Number(value) < 100) {
         let productName = element.parentElement.getAttribute("data-name");
         arrPro.forEach((obj, index) => {
             if (obj.name === productName) {
@@ -222,24 +221,23 @@ const typeValue = (element, value) => {
         });
     }
 
-    makeShop();
-    makeTotal();
-    makeCountPro();
-};
+    if (Number(value) > 99) {
+        let productName = element.parentElement.getAttribute("data-name");
+        arrPro.forEach((obj, index) => {
+            if (obj.name === productName) {
+                element.value = arrPro[index].quantity;
+            }
+        });
 
-const makeTotal = () => {
-    let result = 0;
+        Swal.fire({
+            title: "Error!",
+            text: "Vượt quá số lượng",
+            icon: "error",
+            confirmButtonText: "Xác nhận",
+        });
+    }
 
-    arrPro.forEach((item) => {
-        result += item.price * item.quantity;
-    });
+    makeDataShop();
 
-    result = new Intl.NumberFormat().format(result);
-
-    total.innerText = result + "đ";
-};
-
-const makeCountPro = () => {
-    let result = arrPro.reduce((count, item) => count + item.quantity, 0);
-    listNumberCart[0].innerText = listNumberCart[1].innerText = result;
+    localStorage.setItem("shop", JSON.stringify(arrPro));
 };

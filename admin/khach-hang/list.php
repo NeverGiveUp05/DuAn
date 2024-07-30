@@ -55,59 +55,61 @@ if (isset($_SESSION['user_multiDelete']) && $_SESSION['user_multiDelete'] == 'su
     }
 </style>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col" style="font-weight: 600;"></th>
-            <th scope="col" style="font-weight: 600;">Email</th>
-            <th scope="col" style="font-weight: 600;">Tên khách hàng</th>
-            <th scope="col" style="font-weight: 600;">Hình ảnh</th>
-            <th scope="col" style="font-weight: 600;">Số điện thoại</th>
-            <th scope="col" style="font-weight: 600;">Trạng thái</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        require_once '../../dao/pdo.php';
-        require_once '../../dao/khach_hang.php';
-
-        $list = client_selectAll();
-
-        if (empty($list)) { ?>
-
+<div class="table-container">
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td colspan="6">Hiện chưa có bản ghi nào</td>
+                <th scope="col" style="font-weight: 600;"></th>
+                <th scope="col" style="font-weight: 600;">Email</th>
+                <th scope="col" style="font-weight: 600;">Tên khách hàng</th>
+                <th scope="col" style="font-weight: 600;">Hình ảnh</th>
+                <th scope="col" style="font-weight: 600;">Số điện thoại</th>
+                <th scope="col" style="font-weight: 600;">Trạng thái</th>
             </tr>
+        </thead>
+        <tbody>
+            <?php
+            require_once '../../dao/pdo.php';
+            require_once '../../dao/khach_hang.php';
 
-            <?php  } else {
-            foreach ($list as $item) { ?>
+            $list = client_selectAll();
+
+            if (empty($list)) { ?>
+
                 <tr>
-                    <td><input style="cursor: pointer;" type="checkbox" name="" id="" class="checkbox" value="<?php echo $item['ma_khach_hang'] ?>"></td>
-                    <td style="width: 310px;"><?php echo $item['email'] ?></td>
-                    <td><?php echo $item['ho_ten'] ?></td>
-                    <td><img width="35" height="35" src="<?php echo $item['hinh_anh'] ?>" alt=""></td>
-                    <td><?php echo $item['so_dien_thoai'] ?></td>
-                    <?php if ($item['kich_hoat'] == 1) { ?>
-                        <td>Kích hoạt</td>
-                    <?php  } else { ?>
-                        <td>Vô hiệu hóa</td>
-                    <?php } ?>
-                    <td>
-                        <a class="btn btn-warning btn-sm" style="color: #000" href="?edit&id=<?php echo $item['ma_khach_hang'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a class="btn btn-danger btn-sm" style="color: #fff" href="?delete&id=<?php echo $item['ma_khach_hang'] ?>"><i class="fa-solid fa-trash-can"></i></a>
-                    </td>
+                    <td colspan="12">Hiện chưa có bản ghi nào</td>
                 </tr>
-        <?php    }
-        }
 
-        ?>
-    </tbody>
-</table>
+                <?php  } else {
+                foreach ($list as $item) { ?>
+                    <tr>
+                        <td><input style="cursor: pointer;" type="checkbox" name="" id="" class="checkbox" value="<?php echo $item['ma_khach_hang'] ?>"></td>
+                        <td style="width: 310px; min-width: 250px"><?php echo $item['email'] ?></td>
+                        <td style="min-width: 172px;"><?php echo $item['ho_ten'] ?></td>
+                        <td style="min-width: 92px;"><img width="35" height="35" src="<?php echo $item['hinh_anh'] ?>" alt=""></td>
+                        <td style="min-width: 158px;"><?php echo $item['so_dien_thoai'] ?></td>
+                        <?php if ($item['kich_hoat'] == 1) { ?>
+                            <td style="min-width: 140px;">Kích hoạt</td>
+                        <?php  } else { ?>
+                            <td style="min-width: 140px;">Vô hiệu hóa</td>
+                        <?php } ?>
+                        <td>
+                            <div style="display: flex; gap: 6px; justify-content: center;">
+                                <a class="btn btn-warning btn-sm" style="color: #000" href="?edit&id=<?php echo $item['ma_khach_hang'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a class="btn btn-danger btn-sm" style="color: #fff" href="?delete&id=<?php echo $item['ma_khach_hang'] ?>"><i class="fa-solid fa-trash-can"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+            <?php    }
+            } ?>
+        </tbody>
+    </table>
+</div>
 
-<button id="btn-select" class="btn btn-outline-primary btn-sm">Chọn tất cả</button>
-<button id="btn-unselect" class="btn btn-outline-primary btn-sm">Bỏ chọn tất cả</button>
-<button id="deleteBtn" class="btn btn-outline-danger btn-sm">Xoá các mục đã chọn</button>
-<a href="./" class="btn btn-primary btn-sm">Nhập thêm</a>
+<button id="btn-select" class="btn btn-outline-primary btn-sm mb-3 ms-2">Chọn tất cả</button>
+<button id="btn-unselect" class="btn btn-outline-primary btn-sm mb-3 ms-2">Bỏ chọn tất cả</button>
+<button id="deleteBtn" class="btn btn-outline-danger btn-sm mb-3 ms-2">Xoá các mục đã chọn</button>
+<a href="./" class="btn btn-primary btn-sm mb-3 ms-2">Nhập thêm</a>
 
 <script>
     const allBtnCheck = document.querySelectorAll('.checkbox');

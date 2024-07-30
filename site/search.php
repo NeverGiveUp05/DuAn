@@ -21,7 +21,7 @@
                             if (str_contains($namedata, $name)) { ?>
                                 <div class="box" style="min-height: 493px; margin-top: 20px">
                                     <div class="cart">NEW</div>
-                                    <a href="?detail=<?php echo $product['ma_hang_hoa'] ?>" style="display: block; margin-bottom: 17px; max-height: 369px">
+                                    <a href="?detail=<?php echo $product['ma_hang_hoa'] ?>" class="img-container">
                                         <img class="cart-img" src="<?php echo $product['hinh_anh'] ?>" alt="" />
                                         <img class="pseudo-img" src="<?php echo $product['hinh_anh_nen'] ?>" alt="" />
                                     </a>
@@ -62,11 +62,11 @@
                         <?php $find = true;
                             }
                         } ?>
-
-                        <?php if (!$find) { ?>
-                            <p style="width: 500px; margin-top: 15px; font-size: 18px">Không tìm thấy sản phẩm nào</p>
-                        <?php  } ?>
                     </div>
+
+                    <?php if (!$find) { ?>
+                        <p style="margin-top: 15px; font-size: 18px">Không tìm thấy sản phẩm nào</p>
+                    <?php  } ?>
                 </div>
             </div>
         </section>
@@ -117,7 +117,7 @@
                         foreach ($products as $product) { ?>
                             <div class="box" style="min-height: 493px;">
                                 <div class="cart">NEW</div>
-                                <a href="?detail=<?php echo $product['ma_hang_hoa'] ?>" style="display: block; margin-bottom: 17px; max-height: 369px">
+                                <a href="?detail=<?php echo $product['ma_hang_hoa'] ?>" class="img-container">
                                     <img class="cart-img" src="<?php echo $product['hinh_anh'] ?>" alt="" />
                                     <img class="pseudo-img" src="<?php echo $product['hinh_anh_nen'] ?>" alt="" />
                                 </a>

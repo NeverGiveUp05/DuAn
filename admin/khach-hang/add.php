@@ -48,7 +48,7 @@ if (isset($_SESSION['add_user']) && $_SESSION['add_user'] == 'success') { ?>
 
 <form class="row g-3 needs-validation mt-1" novalidate method="POST" enctype="multipart/form-data">
     <div class="col-md-4">
-        <label for="validationCustom01" class="form-label">Email</label>
+        <label for="validationCustom01" class="form-label">Email:<span style="color: red;">*</span></label>
         <input type="email" class="form-control p-2" id="validationCustom01" required name="email">
         <div id="emailError" class="invalid-feedback">
             Vui lòng cung cấp địa chỉ email
@@ -56,7 +56,7 @@ if (isset($_SESSION['add_user']) && $_SESSION['add_user'] == 'success') { ?>
     </div>
 
     <div class="col-md-4">
-        <label for="inputPassword" class="form-label">Mật khẩu</label>
+        <label for="inputPassword" class="form-label">Mật khẩu:<span style="color: red;">*</span></label>
         <input type="password" class="form-control p-2" id="inputPassword" required name="password">
         <div class="invalid-feedback">
             Vui lòng cung cấp mật khẩu
@@ -64,7 +64,7 @@ if (isset($_SESSION['add_user']) && $_SESSION['add_user'] == 'success') { ?>
     </div>
 
     <div class="col-md-4">
-        <label for="inputRePassword" class="form-label">Xác nhận mật khẩu</label>
+        <label for="inputRePassword" class="form-label">Xác nhận mật khẩu:<span style="color: red;">*</span></label>
         <input type="password" class="form-control p-2" id="inputRePassword" required>
         <div class="invalid-feedback" id="rePassword">
             Vui lòng xác nhận mật khẩu
@@ -75,7 +75,7 @@ if (isset($_SESSION['add_user']) && $_SESSION['add_user'] == 'success') { ?>
     </div>
 
     <div class="col-md-4">
-        <label for="validationCustom04" class="form-label">Họ tên</label>
+        <label for="validationCustom04" class="form-label">Họ tên:<span style="color: red;">*</span></label>
         <input type="text" class="form-control p-2" id="validationCustom04" required name="name">
         <div class="invalid-feedback">
             Vui lòng cung cấp họ tên
@@ -83,7 +83,7 @@ if (isset($_SESSION['add_user']) && $_SESSION['add_user'] == 'success') { ?>
     </div>
 
     <div class="col-md-4">
-        <label for="validationCustom05" class="form-label">Số điện thoại</label>
+        <label for="validationCustom05" class="form-label">Số điện thoại:<span style="color: red;">*</span></label>
         <input type="number" class="form-control p-2" id="validationCustom05" required name="phone">
         <div class="invalid-feedback">
             Vui lòng cung cấp số điện thoại
@@ -91,17 +91,24 @@ if (isset($_SESSION['add_user']) && $_SESSION['add_user'] == 'success') { ?>
     </div>
 
     <div class="col-md-4">
-        <label style="position: relative;" for="validationCustom06" class="form-label">Hình ảnh ( Optional ) <img style="position: absolute; top: 380%; left: 0;" id="image-preview" class="d-none" width="100" alt=""></label>
+        <label style="position: relative;" for="validationCustom06" class="form-label">Hình ảnh: ( Optional )
+            <img style="position: absolute; top: 380%; left: 0;" class="image-preview1 currentImg" width="100" alt="">
+        </label>
         <input type="file" class="form-control" id="validationCustom06" name="image" onchange="previewImage(this.files[0])">
+        <img style="margin-top: 20px" class="image-preview1 hiddenImg" width="100" alt="">
     </div>
 
     <div class="col-md-3 mb-3">
         <label class="form-label">Trạng thái</label>
-        <div class="p-2 border rounded" style="display: flex; gap: 5px;">
-            <input style="cursor: pointer;" class="ms-4" type="radio" id="activated" name="status" value="1" checked>
-            <label style="cursor: pointer;" for="activated">Kích hoạt</label>
-            <input style="cursor: pointer;" class="ms-4" type="radio" id="unactivated" name="status" value="0">
-            <label style="cursor: pointer;" for="unactivated">Vô hiệu hóa</label>
+        <div class="p-2 border rounded status" style="display: flex; gap: 5px;">
+            <div>
+                <input style="cursor: pointer;" class="ms-4 res-margin" type="radio" id="activated" name="status" value="1" checked>
+                <label style="cursor: pointer;" for="activated">Kích hoạt</label>
+            </div>
+            <div>
+                <input style="cursor: pointer;" class="ms-4 res-margin" type="radio" id="unactivated" name="status" value="0">
+                <label style="cursor: pointer;" for="unactivated">Vô hiệu hóa</label>
+            </div>
         </div>
     </div>
 
@@ -118,9 +125,11 @@ if (isset($_SESSION['add_user']) && $_SESSION['add_user'] == 'success') { ?>
     let checkEmail = false;
 
     function previewImage(file) {
-        const previewImage = document.getElementById('image-preview');
-        previewImage.classList.remove('d-none');
-        previewImage.src = URL.createObjectURL(file);
+        const previewImages = document.querySelectorAll('.image-preview1');
+
+        previewImages.forEach(previewImage => {
+            previewImage.src = URL.createObjectURL(file);
+        })
     }
 
     emailInput.addEventListener('input', function() {
@@ -139,7 +148,6 @@ if (isset($_SESSION['add_user']) && $_SESSION['add_user'] == 'success') { ?>
     (() => {
         'use strict'
 
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
         const forms = document.querySelectorAll('.needs-validation')
         const inputPassword = document.getElementById('inputPassword')
         const inputRePassword = document.getElementById('inputRePassword')

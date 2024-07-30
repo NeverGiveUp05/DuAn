@@ -32,42 +32,44 @@ if (isset($_GET['id'])) {
     }
 </style>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col" style="font-weight: 600;"></th>
-            <th scope="col" style="font-weight: 600;">NỘI DUNG</th>
-            <th scope="col" style="font-weight: 600;">NGÀY BÌNH LUẬN</th>
-            <th scope="col" style="font-weight: 600;">NGƯỜI BÌNH LUẬN</th>
-            <th scope="col" style="font-weight: 600;"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        if (!empty($comments)) {
-            foreach ($comments as $comment) { ?>
-                <tr>
-                    <th><input style="cursor: pointer;" type="checkbox" name="" id="" class="checkbox" value="<?php echo $comment['ma_binh_luan'] ?>"></th>
-                    <td style="width: 500px; max-width: 500px;">
-                        <p style="word-wrap: break-word; overflow-wrap: break-word; overflow: hidden; -webkit-line-clamp: 3; -webkit-box-orient: vertical; display: -webkit-box; margin-bottom: 0"><?php echo $comment['noi_dung'] ?></p>
-                    </td>
-                    <td><?php echo $comment['ngay_dang'] ?></td>
-                    <td><?php echo user_selectById($comment['ma_khach_hang'])['ho_ten'] ?></td>
-                    <td>
-                        <a class="btn btn-danger btn-sm" style="color: #fff" href="?delete&id=<?php echo $comment['ma_binh_luan'] ?>"><i class="fa-solid fa-trash-can"></i></a>
-                    </td>
-                </tr>
-            <?php    }
-        } else { ?>
-            <td colspan="5">Hiện chưa có bình luận nào</td>
-        <?php  } ?>
-    </tbody>
-</table>
+<div class="table-container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" style="font-weight: 600;"></th>
+                <th scope="col" style="font-weight: 600;">NỘI DUNG</th>
+                <th scope="col" style="font-weight: 600;">NGÀY BÌNH LUẬN</th>
+                <th scope="col" style="font-weight: 600;">NGƯỜI BÌNH LUẬN</th>
+                <th scope="col" style="font-weight: 600;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if (!empty($comments)) {
+                foreach ($comments as $comment) { ?>
+                    <tr>
+                        <th><input style="cursor: pointer;" type="checkbox" name="" id="" class="checkbox" value="<?php echo $comment['ma_binh_luan'] ?>"></th>
+                        <td style="width: 500px; max-width: 500px; min-width: 200px">
+                            <p style="word-wrap: break-word; overflow-wrap: break-word; overflow: hidden; -webkit-line-clamp: 3; -webkit-box-orient: vertical; display: -webkit-box; margin-bottom: 0"><?php echo $comment['noi_dung'] ?></p>
+                        </td>
+                        <td style="min-width: 162px;"><?php echo $comment['ngay_dang'] ?></td>
+                        <td style="min-width: 195px;"><?php echo user_selectById($comment['ma_khach_hang'])['ho_ten'] ?></td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" style="color: #fff" href="?delete&id=<?php echo $comment['ma_binh_luan'] ?>"><i class="fa-solid fa-trash-can"></i></a>
+                        </td>
+                    </tr>
+                <?php    }
+            } else { ?>
+                <td colspan="5">Hiện chưa có bình luận nào</td>
+            <?php  } ?>
+        </tbody>
+    </table>
+</div>
 
-<button id="btn-select" class="btn btn-outline-primary btn-sm">Chọn tất cả</button>
-<button id="btn-unselect" class="btn btn-outline-primary btn-sm">Bỏ chọn tất cả</button>
-<button id="deleteBtn" class="btn btn-outline-danger btn-sm">Xoá các mục đã chọn</button>
-<a class="btn btn-primary btn-sm" href="./">Quay lại</a>
+<button id="btn-select" class="btn btn-outline-primary btn-sm mb-3 ms-2">Chọn tất cả</button>
+<button id="btn-unselect" class="btn btn-outline-primary btn-sm mb-3 ms-2">Bỏ chọn tất cả</button>
+<button id="deleteBtn" class="btn btn-outline-danger btn-sm mb-3 ms-2">Xoá các mục đã chọn</button>
+<a class="btn btn-primary btn-sm mb-3 ms-2" href="./">Quay lại</a>
 
 <script>
     const allBtnCheck = document.querySelectorAll('.checkbox');

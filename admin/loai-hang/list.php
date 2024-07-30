@@ -30,41 +30,52 @@ if (isset($_SESSION['update_loai_hang']) && $_SESSION['update_loai_hang'] == 'su
     $_SESSION['update_loai_hang'] = null;
 } ?>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col" style="font-weight: 600;"></th>
-            <th scope="col" style="font-weight: 600;">Mã loại hàng</th>
-            <th scope="col" style="font-weight: 600;">Tên loại hàng</th>
-            <th scope="col" style="font-weight: 600;"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        require_once '../../dao/pdo.php';
-        require_once '../../dao/loai_hang.php';
-
-        $list = loai_selectAll();
-
-        foreach ($list as $item) { ?>
+<div class="table-container">
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <th><input style="cursor: pointer;" type="checkbox" name="" id="" class="checkbox" value="<?php echo $item['ma_loai_hang'] ?>"></th>
-                <td><?php echo $item['ma_loai_hang'] ?></td>
-                <td><?php echo $item['ten_loai_hang'] ?></td>
-                <td>
-                    <a class="btn btn-warning btn-sm" style="color: #000" href="?edit&id=<?php echo $item['ma_loai_hang'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
-                    <a class="btn btn-danger btn-sm" style="color: #fff" href="?delete&id=<?php echo $item['ma_loai_hang'] ?>"><i class="fa-solid fa-trash-can"></i></a>
-                </td>
+                <th scope="col" style="font-weight: 600;"></th>
+                <th scope="col" style="font-weight: 600;">Mã loại hàng</th>
+                <th scope="col" style="font-weight: 600;">Tên loại hàng</th>
+                <th scope="col" style="font-weight: 600;"></th>
             </tr>
-        <?php    }
-        ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <?php
+            require_once '../../dao/pdo.php';
+            require_once '../../dao/loai_hang.php';
 
-<button id="btn-select" class="btn btn-outline-primary btn-sm">Chọn tất cả</button>
-<button id="btn-unselect" class="btn btn-outline-primary btn-sm">Bỏ chọn tất cả</button>
-<button id="deleteBtn" class="btn btn-outline-danger btn-sm">Xoá các mục đã chọn</button>
-<a href="./" class="btn btn-primary btn-sm">Nhập thêm</a>
+            $list = loai_selectAll();
+
+            if (empty($list)) { ?>
+
+                <tr>
+                    <td colspan="12">Hiện chưa có bản ghi nào</td>
+                </tr>
+
+                <?php  } else {
+                foreach ($list as $item) { ?>
+                    <tr>
+                        <th><input style="cursor: pointer;" type="checkbox" name="" id="" class="checkbox" value="<?php echo $item['ma_loai_hang'] ?>"></th>
+                        <td><?php echo $item['ma_loai_hang'] ?></td>
+                        <td><?php echo $item['ten_loai_hang'] ?></td>
+                        <td>
+                            <div style="display: flex; gap: 6px; justify-content: center;">
+                                <a class="btn btn-warning btn-sm" style="color: #000" href="?edit&id=<?php echo $item['ma_loai_hang'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a class="btn btn-danger btn-sm" style="color: #fff" href="?delete&id=<?php echo $item['ma_loai_hang'] ?>"><i class="fa-solid fa-trash-can"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+            <?php    }
+            } ?>
+        </tbody>
+    </table>
+</div>
+
+<button id="btn-select" class="btn btn-outline-primary btn-sm mb-3 ms-2">Chọn tất cả</button>
+<button id="btn-unselect" class="btn btn-outline-primary btn-sm mb-3 ms-2">Bỏ chọn tất cả</button>
+<button id="deleteBtn" class="btn btn-outline-danger btn-sm mb-3 ms-2">Xoá các mục đã chọn</button>
+<a href="./" class="btn btn-primary btn-sm mb-3 ms-2">Nhập thêm</a>
 
 <script>
     const allBtnCheck = document.querySelectorAll('.checkbox');

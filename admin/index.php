@@ -34,7 +34,7 @@
                 </style>
                 <div class="logo">
                     <p style="padding: 24px; text-align: center; font-size: 26px; font-weight: 500; 
-                color: #ff000096; margin: 0;">QUẢN TRỊ WEBSITE</p>
+                color: #ff000096; margin: 0; text-wrap: nowrap">QUẢN TRỊ WEBSITE</p>
                 </div>
             </div>
         </header>
@@ -47,7 +47,7 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                            <ul class="navbar-nav" style="font-size: 15px">
+                            <ul class="navbar-nav" style="font-size: 15px; width: 100%">
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="./">TRANG CHỦ</a>
                                 </li>
@@ -63,20 +63,21 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="./binh-luan">BÌNH LUẬN</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="margin-right: auto;">
                                     <a class="nav-link" href="./thong-ke">THỐNG KÊ</a>
                                 </li>
+
+                                <div class="right-header" style="display: flex;">
+                                    <div class="header-action" style="display: flex; align-items: center; gap: 8px;">
+                                        <img src="<?php echo $user['hinh_anh'] ?>" alt="" style="width: 30px; height: 30px; border-radius: 50%;">
+                                        <a href="#" style="margin-right: 10px;">
+                                            <?php echo $user['ho_ten']; ?>
+                                        </a>
+                                    </div>
+                                </div>
                             </ul>
                         </div>
 
-                        <div class="right-header">
-                            <div class="header-action" style="display: flex; align-items: center; gap: 8px;">
-                                <img src="<?php echo $user['hinh_anh'] ?>" alt="" style="width: 30px; height: 30px; border-radius: 50%;">
-                                <a href="#" style="margin-right: 10px;">
-                                    <?php echo $user['ho_ten']; ?>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </nav>
             </section>
@@ -84,7 +85,7 @@
 
         <main id="main" style="padding-top: 20px; border: none;">
             <section class="container" style="padding: 0;">
-                <p style="padding: 24px; text-align: center; font-size: 24px;">CÔNG CỤ QUẢN TRỊ WEBSITE</p>
+                <p style="padding: 24px; text-align: center; font-size: 24px; line-height: 1.4">CÔNG CỤ QUẢN TRỊ WEBSITE</p>
             </section>
         </main>
 

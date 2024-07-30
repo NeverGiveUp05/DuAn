@@ -17,6 +17,12 @@ function user_selectById($id)
     return pdo_query_one($sql);
 }
 
+function user_selectByEmail($email)
+{
+    $sql = "SELECT * FROM khach_hang WHERE email = '$email'";
+    return pdo_query_one($sql);
+}
+
 function user_delete($id)
 {
     $sql = "DELETE FROM binh_luan WHERE ma_khach_hang = $id";

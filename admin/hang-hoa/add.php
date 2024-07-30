@@ -53,7 +53,7 @@ if (isset($_SESSION['hang_add_success']) && $_SESSION['hang_add_success'] == 'su
     </div>
 
     <div class="col-md-3">
-        <label for="inputRePassword" class="form-label">Mức giảm giá (%) (optional)</label>
+        <label for="inputRePassword" class="form-label">Mức giảm giá (%)</label>
         <input type="number" min="0" max="100" class="form-control p-2" id="inputRePassword" name="discount">
         <div class="invalid-feedback">
             Mức giảm giá không hợp lệ
