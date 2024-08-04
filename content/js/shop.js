@@ -33,7 +33,7 @@ const makeShop = () => {
                     style: "currency",
                     currency: "VND",
                     minimumFractionDigits: 0,
-                    maximumFractionDigits: 0,
+                    maximumFractionDigits: 3,
                     currencyDisplay: "symbol",
                 }).format(item.price * item.quantity)}</div>
             </div>
@@ -54,7 +54,7 @@ const makeTotal = () => {
         style: "currency",
         currency: "VND",
         minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
+        maximumFractionDigits: 3,
         currencyDisplay: "symbol",
     }).format(result);
 

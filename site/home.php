@@ -110,7 +110,14 @@
                                                 } else {
                                                     $cost = $product['don_gia'];
                                                 }
-                                                echo number_format($cost, 0, '', '.');
+
+                                                $formattedCost = number_format($cost, max(3 - strlen(substr(strrchr($cost, "."), 1)), 0), ",", ".");
+
+                                                if (strpos($formattedCost, ",000")) {
+                                                    echo number_format($cost, 0, ",", ".");
+                                                } else {
+                                                    echo $formattedCost;
+                                                }
                                                 ?>đ</span>
                                         <?php if (isset($product['muc_giam_gia'])) { ?>
                                             <del><?php echo number_format($product['don_gia'], 0, '', '.'); ?>đ</del>

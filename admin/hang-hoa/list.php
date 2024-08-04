@@ -131,7 +131,7 @@ if (isset($_SESSION['hang_multiDelete']) && $_SESSION['hang_multiDelete'] == 'su
                         <td style="max-width: 450px; min-width: 300px">
                             <p style="word-wrap: break-word; overflow-wrap: break-word; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; display: -webkit-box; margin-bottom: 0"> <?php echo $item['mo_ta_hang_hoa'] ?></p>
                         </td>
-                        <td><img style="margin: 0 18px;" width="50" src="<?php echo $item['hinh_anh'] ?>" alt=""></td>
+                        <td><img style="margin: 0 18px; object-fit: cover" width="50" height="75" src="<?php echo $item['hinh_anh'] ?>" alt=""></td>
                         <td>
                             <div style="display: flex; gap: 6px; justify-content: center;">
                                 <a class="btn btn-warning btn-sm" style="color: #000" href="?edit&id=<?php echo $item['ma_hang_hoa'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
